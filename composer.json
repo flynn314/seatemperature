@@ -1,0 +1,27 @@
+{
+	"name": "flynn314/seatemperature",
+	"description": "Sea temperature data",
+	"type": "library",
+	"license": "MIT",
+	"require": {
+		"php": "^7.4",
+		"flynn314/webclient": "^0.0.1",
+		"symfony/dom-crawler": "^3.3|^5.4",
+		"symfony/css-selector": "^3.3|^5.4"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~6.0|^9.6"
+	},
+	"autoload": {
+		"psr-4": {
+			"Flynn314\\SeaTemperature\\": "src"
+		}
+	},
+	"autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}
