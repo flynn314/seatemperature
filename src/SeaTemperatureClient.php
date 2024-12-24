@@ -16,7 +16,7 @@ class SeaTemperatureClient
         $this->webClient = new WebClient();
     }
 
-    public function getCurrentTemperature(string $country, string $city, ?string $language = null): TempInfo
+    public function getCurrentTemperature(string $country, string $city, string|null $language = null): TempInfo
     {
         $domainName = 'seatemperature.net';
         if ('ru' === $language) {

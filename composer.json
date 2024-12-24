@@ -1,16 +1,16 @@
 {
 	"name": "flynn314/seatemperature",
-	"description": "Sea temperature data",
+	"description": "Sea temperature data.",
 	"type": "library",
 	"license": "MIT",
 	"require": {
-		"php": "^7.4|^8.2",
+		"php": "^8.3",
 		"flynn314/webclient": "^1.0",
-		"symfony/dom-crawler": "^3.3|^5.4",
-		"symfony/css-selector": "^3.3|^5.4"
+		"symfony/dom-crawler": "^7.2",
+		"symfony/css-selector": "^7.2"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "*"
+		"phpunit/phpunit": "11.5.2"
 	},
 	"autoload": {
 		"psr-4": {

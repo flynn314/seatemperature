@@ -3,16 +3,12 @@ declare(strict_types=1);
 
 namespace Flynn314\SeaTemperature\Entity;
 
-final class TempInfo
+final readonly class TempInfo
 {
-    private float $temp;
-    private string $description;
-
-    public function __construct(float $temp, string $description)
-    {
-        $this->temp = $temp;
-        $this->description = $description;
-    }
+    public function __construct(
+        private float  $temp,
+        private string $description
+    ) {}
 
     public function getTemp(): float
     {
