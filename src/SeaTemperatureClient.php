@@ -7,18 +7,14 @@ use Flynn314\SeaTemperature\Entity\TempInfo;
 use Flynn314\WebClient\WebClient;
 use Symfony\Component\DomCrawler\Crawler;
 
-class SeaTemperatureClient
+final class SeaTemperatureClient
 {
-    private WebClient $webClient;
-
-    public function __construct()
-    {
-        $this->webClient = new WebClient();
-    }
+    public function __construct(private WebClient $wc) {}
 
     public function getCurrentTemperature(string $country, string $city, string|null $language = null): TempInfo
     {
         $domainName = 'seatemperature.net';
+        $version = 1;
         if ('ru' === $language) {
             $domainName = 'seatemperature.ru';
             $city .= '-sea-temperature';
@@ -26,20 +22,26 @@ class SeaTemperatureClient
             $domainName = $language . '.' . $domainName;
         } else {
             $city .= '-sea-temperature';
+            $version = 2;
         }
 
         $link = sprintf('https://%s/current/%s/%s', $domainName, $country, $city);
         $html = $this->getHtml($link);
         $crawler = new Crawler($html);
 
-        $temp = (float) $crawler->filter('#temp1')->text();
-        $description = $crawler->filter('#apa')->count() ? trim($crawler->filter('#apa')->text()) : '';
+        if (1 === $version) {
+            $temp = (float) $crawler->filter('#temp1 h3')->text();
+            $description = mb_trim((string) $crawler->filter('#apa p')->first()?->text());
+        } else {
+            $temp = (float) $crawler->filter('#tempwindows div')->first()->text('h4');
+            $description = mb_trim((string) $crawler->filter('#curinfo p')->eq(2)?->text());
+        }
 
         return new TempInfo($temp, $description);
     }
 
     private function getHtml(string $link): string
     {
-        return $this->webClient->fileGetContentsAsChrome($link);
+        return $this->wc->fileGetContentsAsChrome($link);
     }
 }

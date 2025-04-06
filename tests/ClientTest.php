@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Flynn314\SeaTemperature\SeaTemperatureClient;
+use Flynn314\WebClient\WebClient;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,7 +14,7 @@ class ClientTest extends TestCase
 {
     public function testCase(): void
     {
-        $client = new SeaTemperatureClient();
+        $client = new SeaTemperatureClient(new WebClient());
 
         $temp = $client->getCurrentTemperature('united-states', 'miami-beach');
         $this->assertTrue(is_float($temp->getTemp()));
